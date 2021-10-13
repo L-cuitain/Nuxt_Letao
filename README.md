@@ -38,3 +38,10 @@ yarn dev
 * app.js   入口文件
 * views    模板文件
 * package.json
+
+
+### 参考资料
+* koa-jwt: https://www.npmjs.com/package/koa-jwt
+* mysql:https://www.npmjs.com/package/mysql
+* crypto加密: https://nodejs.org/dist/latest-v14.x/docs/api/crypto.html
+* koa: https://koa.bootcss.com/#context

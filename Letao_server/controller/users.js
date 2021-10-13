@@ -1,8 +1,18 @@
 //导入model层users
 const {
     register,
-    findUserByName
+    findUserByName,
+    login
 } = require('../model/users');
+
+//导入加密文件
+const {
+    cryptoPwd
+} = require('../utils');
+const {
+    secret
+} = require('../config');
+
 
 //导出函数
 
@@ -35,4 +45,36 @@ module.exports.register = async (ctx) => {
 }
 
 
+//登录
+module.exports.login = async (ctx) => {
+    //获取用户名密码
+    const {
+        username,
+        password
+    } = ctx.request.body;
 
+    //查询数据库
+    const result = await login(username, password);
+    // [
+    //     RowDataPacket {
+    //       id: 1,
+    //       username: '张三',
+    //       password: '1234567890',
+    //       mobile: '13843959747',
+    //       smscode: '不是知道是什么'
+    //     }
+    //   ]
+    // console.log(result);
+    //如果有值
+    if (result[0]) {
+        // 返回响应
+        ctx.body = {
+            code: 200,
+            userInfo: {
+                username: result[0].username,
+                password: result[0].password
+            },
+            msg: '登录成功'
+        }
+    }
+}
