@@ -1,19 +1,15 @@
 const router = require('koa-router')()
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
+//引入controller 必须解构
+const { gridList , sportList , swipeList } = require('../controller');
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
+//获取宫格列表
+router.get('/gridList',gridList);
 
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
+//获取运动专区
+router.get('/sportList',sportList);
+
+//获取轮播图
+router.get('/swipeList',swipeList);
 
 module.exports = router

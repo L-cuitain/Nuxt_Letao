@@ -12,10 +12,16 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 //记录日志
 const logger = require('koa-logger')
+//引入数据库配置dotenv
+const dotenv = require('dotenv');
+
+//启动 Node env环境 先运行
+dotenv.config();
 
 //加载路由
 const index = require('./routes/index')
 const users = require('./routes/users')
+const category = require('./routes/category');
 
 // error handler 错误处理
 onerror(app)
@@ -26,8 +32,10 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
+//静态服务器: 主要存放一些静态资源
 app.use(require('koa-static')(__dirname + '/public'))
 
+//pug模板引擎配置
 app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
@@ -43,6 +51,7 @@ app.use(async (ctx, next) => {
 // routes  注册路由
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(category.routes(),category.allowedMethods());
 
 // error-handling  一旦监听到异常 打印看到报错信息
 app.on('error', (err, ctx) => {
