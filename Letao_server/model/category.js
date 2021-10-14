@@ -2,7 +2,7 @@
 const { query } = require('../db/query');
 
 //查询所有
-module.exports.oneCategory = async(id) => {
+module.exports.oneCategory = async() => {
     return await query('select * from category');
 }
 

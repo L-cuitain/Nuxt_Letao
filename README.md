@@ -45,3 +45,4 @@ yarn dev
 * mysql:https://www.npmjs.com/package/mysql
 * crypto加密: https://nodejs.org/dist/latest-v14.x/docs/api/crypto.html
 * koa: https://koa.bootcss.com/#context
+* Joi:https://www.npmjs.com/package/joi

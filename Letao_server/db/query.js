@@ -4,8 +4,11 @@ const mysql = require('mysql');
 //引入dbConfig数据库连接文件
 const { dbConfig } = require('./dbConfig');
 
+//配置信息
+const config = dbConfig[process.env.DB_ENV];
+
 //创建连接池
-const pool =mysql.createPool(dbConfig);
+const pool =mysql.createPool(config);
 
 //封装sql查询函数
 module.exports.query = async (sql,values) => {
