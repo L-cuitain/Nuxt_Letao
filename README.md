@@ -41,6 +41,7 @@ yarn dev
 
 
 ### 参考资料
+* jsonwebtoken : https://www.npmjs.com/package/jsonwebtoken
 * koa-jwt: https://www.npmjs.com/package/koa-jwt
 * mysql:https://www.npmjs.com/package/mysql
 * crypto加密: https://nodejs.org/dist/latest-v14.x/docs/api/crypto.html

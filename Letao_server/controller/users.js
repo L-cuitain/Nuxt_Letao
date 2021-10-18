@@ -13,8 +13,16 @@ const {
     cryptoPwd
 } = require('../utils');
 const {
-    secret
+    secret,
+    jwtsecret
 } = require('../config');
+
+//导入阿里云接口
+const Core = require('@alicloud/pop-core');
+
+//引入jwt
+const jwt = require('jsonwebtoken');
+
 
 
 //导出函数
@@ -57,18 +65,18 @@ module.exports.userRegister = async (ctx) => {
     console.log(user);
 
 
-    if (user) {
+    if (user[0]) {
+        ctx.body = {
+            status: 500,
+            msg: '用户名已注册'
+        }
+    } else {
         //新增数据库字段
         await register(username, cryptoPwd(password + secret), mobile);
 
         ctx.body = {
             status: 200,
             msg: '注册成功',
-        }
-    } else {
-        ctx.body = {
-            status: 500,
-            msg: '用户名已注册'
         }
     }
 }
@@ -90,20 +98,33 @@ module.exports.login = async (ctx) => {
     //       username: '张三',
     //       password: '1234567890',
     //       mobile: '13843959747',
-    //       smscode: '不是知道是什么'
+    //       smscode: '短信验证码'
     //     }
     //   ]
     // console.log(result);
     //如果有值
     if (result[0]) {
+        //使用jsonwebtoken包 创建token
+        const token = jwt.sign({
+            username,
+            password
+        },jwtsecret,{ expiresIn : '1h' })
+
         // 返回响应
         ctx.body = {
             code: 200,
             userInfo: {
-                username: result[0].username,
-                password: result[0].password
+                token
             },
             msg: '登录成功'
         }
     }
 }
+
+
+//短信验证
+// module.exports.sendMessage = (ctx) => {
+//     //获取请求的电话号码
+//     const { mobile } = ctx.request.body;
+
+// }

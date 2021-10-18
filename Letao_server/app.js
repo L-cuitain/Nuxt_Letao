@@ -15,6 +15,14 @@ const logger = require('koa-logger')
 //引入数据库配置dotenv
 const dotenv = require('dotenv');
 
+//引入koa-jwt
+const jwt = require('koa-jwt');
+
+//引入jwt的secret
+const { jwtsecret } = require('./config');
+
+
+
 //启动 Node env环境 先运行
 dotenv.config();
 
@@ -47,6 +55,27 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+
+
+// 通过 koa-jwt 设置 jwt 中间件
+// 判断客户端是否发送token 如果没有
+// 则返回401和错误信息
+app.use(function(ctx, next){
+  return next().catch((err) => {
+    if (401 == err.status) {
+      ctx.status = 401;
+      ctx.body = 'Protected resource, use Authorization header to get access\n';
+    } else {
+      throw err;
+    }
+  });
+});
+
+//设置jwt中间件
+//允许哪些路由可以使用token
+//unless排除register和login不需要在请求中带token
+app.use(jwt({ secret: jwtsecret }).unless({ path:[/^\/public/,/^\/users\/register/,/^\/users\/login/] }));
+
 
 // routes  注册路由
 app.use(index.routes(), index.allowedMethods())
