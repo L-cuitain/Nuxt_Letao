@@ -17,9 +17,6 @@ const {
     jwtsecret
 } = require('../config');
 
-//导入阿里云接口
-const Core = require('@alicloud/pop-core');
-
 //引入jwt
 const jwt = require('jsonwebtoken');
 
@@ -120,11 +117,3 @@ module.exports.login = async (ctx) => {
         }
     }
 }
-
-
-//短信验证
-// module.exports.sendMessage = (ctx) => {
-//     //获取请求的电话号码
-//     const { mobile } = ctx.request.body;
-
-// }

@@ -3,7 +3,7 @@
 
 ## 技术栈
 - 前端: Nuxt
-- 后端: Koa JWT 微信支付 短信验证 加密
+- 后端: Koa JWT 微信支付 短信验证(腾讯云) 加密
 - 数据库: mysql
 
 
@@ -41,9 +41,10 @@ yarn dev
 
 
 ### 参考资料
-* jsonwebtoken : https://www.npmjs.com/package/jsonwebtoken
-* koa-jwt: https://www.npmjs.com/package/koa-jwt
-* mysql:https://www.npmjs.com/package/mysql
-* crypto加密: https://nodejs.org/dist/latest-v14.x/docs/api/crypto.html
-* koa: https://koa.bootcss.com/#context
-* Joi:https://www.npmjs.com/package/joi
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+* [koa-jwt](https://www.npmjs.com/package/koa-jwt)
+* [mysql](https://www.npmjs.com/package/mysql)
+* [crypto加密](https://nodejs.org/dist/latest-v14.x/docs/api/crypto.html)
+* [koa](https://koa.bootcss.com/#context)
+* [Joi](https://www.npmjs.com/package/joi)
+
