@@ -1,5 +1,5 @@
 //引入utils中的方法
-const { sendSms , getSMSCode } = require('../utils/utils');
+const { sendSms , getSMSCode } = require('../utils/sms');
 
 //短信验证
 module.exports.sms = async (ctx) => {

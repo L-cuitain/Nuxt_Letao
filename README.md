@@ -44,7 +44,7 @@ yarn dev
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 * [koa-jwt](https://www.npmjs.com/package/koa-jwt)
 * [mysql](https://www.npmjs.com/package/mysql)
-* [crypto加密](https://nodejs.org/dist/latest-v14.x/docs/api/crypto.html)
+* [crypto加密](http://nodejs.cn/api/crypto.html)
 * [koa](https://koa.bootcss.com/#context)
 * [Joi](https://www.npmjs.com/package/joi)
 

@@ -31,6 +31,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const category = require('./routes/category');
 const sms = require('./routes/sms');
+const order = require('./routes/order');
 
 // error handler 错误处理
 onerror(app)
@@ -83,6 +84,8 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(category.routes(),category.allowedMethods());
 app.use(sms.routes(),sms.allowedMethods());
+app.use(order.routes(),order.allowedMethods());
+
 
 // error-handling  一旦监听到异常 打印看到报错信息
 app.on('error', (err, ctx) => {

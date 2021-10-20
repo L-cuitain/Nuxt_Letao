@@ -11,7 +11,7 @@ const {
 //导入加密文件
 const {
     cryptoPwd
-} = require('../utils');
+} = require('../utils/crypto');
 const {
     secret,
     jwtsecret
