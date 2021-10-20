@@ -47,4 +47,5 @@ yarn dev
 * [crypto加密](http://nodejs.cn/api/crypto.html)
 * [koa](https://koa.bootcss.com/#context)
 * [Joi](https://www.npmjs.com/package/joi)
+* [微信支付开发文档](https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_1)
 
