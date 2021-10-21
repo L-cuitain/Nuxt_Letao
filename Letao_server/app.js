@@ -18,10 +18,14 @@ const dotenv = require('dotenv');
 //引入koa-jwt
 const jwt = require('koa-jwt');
 
+//引入koa-xml-body
+const xmlParser = require('koa-xml-body');
+
 //引入jwt的secret
 const { jwtsecret } = require('./config');
 
-
+//挂载koa-xml-body
+app.use(xmlParser());
 
 //启动 Node env环境 先运行
 dotenv.config();

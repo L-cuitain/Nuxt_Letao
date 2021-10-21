@@ -14,6 +14,8 @@ module.exports.notify_url = process.env.notify_url;
 
 module.exports.orderUrl = process.env.orderUrl;
 
+module.exports.orderquery = process.env.orderquery;
+
 //随机生成指定位数的随机数
 module.exports.getRandomLength = (len) => {
     //创建空字符串
