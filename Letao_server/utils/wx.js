@@ -43,8 +43,8 @@ module.exports.createSign = (args) => {
     return crypto.createHash('MD5').update(sortedParams).digest('hex').toUpperCase()
 }
 
-//微信下单
-module.exports.createOrder = (url,params) => {
+//微信订单处理 微信下单  订单查询
+module.exports.orderHandle = (url,params) => {
     //发送请求
     return new Promise(async (res,rej) => {
         //axios请求
@@ -56,7 +56,12 @@ module.exports.createOrder = (url,params) => {
 
         //使用xml的parseString方法 将xml转成json
         xml.parseString(data.data,function(err,data){
-            res(data);
+            const { return_code,result_code,return_msg } = xml.data;
+            if(return_code == 'SUCCESS' && result_code == 'SUCCESS' && return_msg == 'OK'){
+                res(data.xml);
+            }else{
+                rej(data);
+            }
         })
     })
 }
@@ -72,3 +77,5 @@ module.exports.getRandom = (min,max) => {
 module.exports.getTrade_no = () => {
     return this.getRandomStr() + this.getRandomLength(5);
 }
+
+

@@ -5,7 +5,7 @@ const {
 //引入utils/wx.js
 const {
     createSign,
-    createOrder,
+    orderHandle,
     getRandomStr,
     getTrade_no,
     appid,
@@ -60,11 +60,16 @@ module.exports.order = async (ctx) => {
     `
 
     //返回数据
-    const data = await createOrder(orderUrl, sendData);
-    const { return_code , return_msg , result_code , code_url } = data.xml;
+    const data = await orderHandle(orderUrl, sendData);
+    const { return_code , return_msg , result_code , code_url } = data;
     //判断是否下单成功
     if(return_code == 'SUCCESS' && return_msg == 'OK' && result_code == 'SUCCESS'){
-        data.xml.payUrl = await QRCode.toDataURL(code_url);
+        //把订单数据写入到payorder
+        await query(`insert into payorder (appid,mch_id,nonce_str,body,out_trade_no,total_fee,spbill_create_ip,trade_type,trade_state) values ("${appid}","${mch_id}","${params.nonce_str}","${body}","${params.out_trade_no}","${total_fee}","${spbill_create_ip}","${trade_type}","NOTPAY")`);
+        data.payUrl = await QRCode.toDataURL(code_url);
+        //把随机字符串 和商户订单号传给前端
+        data.nonce_str = params.nonce_str;
+        data.out_trade_no = params.out_trade_no;
     }
     console.log(data);
     
@@ -77,16 +82,11 @@ module.exports.order = async (ctx) => {
 
 //微信下单回调
 module.exports.notify = async (ctx) => {
-    //打印微信服务器回调接口时的请求报文
-    const { appid,bank_type,cash_fee,fee_type,is_subscribe,mch_id,nonce_str,openid,out_trade_no,sign,time_end,total_fee,trade_type,transaction_id } = ctx.request.body.xml;
-    //根据商户订单号查询支付订单表是否存在此订单
-    const data = await query(`select * from payorder where out_trade_no = ?`,[out_trade_no]);
-    //判断微信回调是否发送多次订单信息
-    if(data.length) return;
+    const { out_trade_no } = ctx.request.body.xml;
+    console.log(ctx.request.body.xml);
 
-    //数据库添加字段
-    const result = await query(`insert into payorder(appid, bank_type,cash_fee,fee_type,is_subscribe,mch_id,nonce_str,openid,out_trade_no,sign,time_end,total_fee,trade_type,transaction_id) values('${appid}','${bank_type}','${cash_fee}','${fee_type}','${is_subscribe}','${mch_id}','${nonce_str}','${openid}','${out_trade_no}','${sign}','${time_end}','${total_fee}','${trade_type}','${transaction_id}')`);
-
+    //根据商户订单号更新订单状态
+    await query(`update payorder set trade_state = "SUCCESS" where out_trade_no = "${out_trade_no}"`);
     //响应微信服务器接口,订单处理成功,无需重复通知
     ctx.body = `<xml>
     <return_code><![CDATA[SUCCESS]]></return_code>
@@ -117,7 +117,7 @@ module.exports.queryOrder = async (ctx) => {
        </xml>
     `
 
-    const data =  await createOrder(orderquery, sendData);
+    const data =  await orderHandle(orderquery, sendData);
 
     ctx.body = {
         status:200,
