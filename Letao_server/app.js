@@ -24,6 +24,12 @@ const xmlParser = require('koa-xml-body');
 //引入jwt的secret
 const { jwtsecret } = require('./config');
 
+//引入cors
+const cors = require('koa2-cors');
+
+//解决跨域
+app.use(cors());
+
 //挂载koa-xml-body
 app.use(xmlParser());
 
@@ -80,7 +86,7 @@ app.use(function(ctx, next){
 //设置jwt中间件
 //允许哪些路由可以使用token
 //unless排除register和login不需要在请求中带token
-app.use(jwt({ secret: jwtsecret }).unless({ path:[/^\/public/,/^\/users\/register/,/^\/users\/login/] }));
+// app.use(jwt({ secret: jwtsecret }).unless({ path:[/^\/public/,/^\/users\/register/,/^\/users\/login/] }));
 
 
 // routes  注册路由

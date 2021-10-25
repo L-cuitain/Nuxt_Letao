@@ -41,11 +41,17 @@ yarn dev
 
 
 ### 参考资料
+前端
+* [@nuxtjs/axios](https://www.npmjs.com/package/@nuxtjs/axios)
+* [@nuxtjs/proxy](https://www.npmjs.com/package/@nuxtjs/proxy)
+
+后端
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 * [koa-jwt](https://www.npmjs.com/package/koa-jwt)
 * [mysql](https://www.npmjs.com/package/mysql)
 * [crypto加密](http://nodejs.cn/api/crypto.html)
 * [koa](https://koa.bootcss.com/#context)
 * [Joi](https://www.npmjs.com/package/joi)
+* [koa-cors](https://www.npmjs.com/package/koa-cors)
 * [微信支付开发文档](https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_1)
 
