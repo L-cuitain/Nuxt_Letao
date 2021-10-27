@@ -17,10 +17,10 @@ module.exports.twoCategory = async (ctx) => {
     const { id } = ctx.request.query;
 
     //查询数据库
-    const towCategoryList = await twoCategory(id);
+    const twoCategoryList = await twoCategory(id);
 
     ctx.body = {
         status : 200,
-        towCategoryList
+        twoCategoryList
     }
 }
