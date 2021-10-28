@@ -12,6 +12,9 @@ export default function ({
 }, inject) {
   //请求拦截
   $axios.onRequest(config => {
+    //请求时加载loading
+    
+
     //在请求头设置token
     //已登录
     if (store.state.token) {
@@ -23,6 +26,9 @@ export default function ({
 
   //响应拦截
   $axios.onResponse(res => {
+    //响应时结束loading
+
+
     //获取 服务端 响应状态码
     const {
       status,

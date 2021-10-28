@@ -18,6 +18,7 @@ module.exports.getSMSCode = (codeLen) => {
 
  // 腾讯云发送短信功能
  module.exports.sendSms = async (mobile, code) => {
+     console.log(process.env.secretId);
     const tencentcloud = require("tencentcloud-sdk-nodejs")
     // 导入对应产品模块的client models。
     const smsClient = tencentcloud.sms.v20210111.Client

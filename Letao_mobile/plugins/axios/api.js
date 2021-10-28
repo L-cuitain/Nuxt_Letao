@@ -29,6 +29,19 @@ export default ({ $request } , inject) => {
         },
         TwoCategoryList(cid){
             return $request.$get(`/twoCategory?id=${cid}`);
+        },
+        /**
+         * 
+         * 发送短信
+         */
+        SendSmsCode(mobile){
+            return $request.$post('/sms',{mobile});
+        },
+        /**
+         * 注册
+         */
+        Register(data){
+            return $request.$post('/users/register',data);
         }
     })
 }

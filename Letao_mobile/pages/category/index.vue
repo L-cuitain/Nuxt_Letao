@@ -25,8 +25,10 @@ export default {
     };
   },
 
-  async asyncData({ $api }){
-    let active = 0;
+  async asyncData({ $api , query }){
+    //读取路由参数 如果没有则默认为0
+    let active = query.active || 0;
+    
     let { oneCategoryList } = await $api.OneCategoryList();
 
     //遍历oneCategoryList
@@ -48,13 +50,13 @@ export default {
 
   methods: {
     async categoryHandle(index){
+      //替换url路由传参
+      this.$router.replace(`/category?active=${index}`);
       //切换分类选项
       let { twoCategoryList } = await this.$api.TwoCategoryList(this.oneCategoryList[index]['id']);
       this.twoCategoryList = twoCategoryList;
     }
   },
-
-  
 };
 </script>
 
