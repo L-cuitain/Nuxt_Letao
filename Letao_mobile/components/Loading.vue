@@ -1,10 +1,8 @@
 <template>
-  <div class="loading">
     <!-- 加载组件 -->
-    <van-overlay :show="show">
+    <van-overlay :show="show"  class="loading">
       <van-loading type="spinner" color="#1989fa">加载中...</van-loading>
     </van-overlay>
-  </div>
 </template>
 
 <script>
@@ -31,10 +29,10 @@ export default {
 </script>
 
 <style scoped>
-.loading{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 </style>

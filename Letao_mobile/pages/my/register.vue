@@ -74,6 +74,7 @@
 //引入
 import { verify } from "~/utils";
 import { Toast } from "vant";
+import { mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -95,6 +96,8 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['updateUserInfo']),
+
     // values 提交表单所有数据
     async onSubmit(values) {
       console.log("submit", values);
@@ -125,6 +128,8 @@ export default {
       const { status } = await this.$api.Register(values);
       if(status == 200){
         //注册成功把用户信息 存在vuex中
+        // this.$store.commit('updateUserInfo',userInfo);
+        this.updateUserInfo(values);
 
         //注册成功 跳转登录页
         this.$router.push('/my/login');

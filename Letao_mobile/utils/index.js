@@ -7,7 +7,7 @@ export const verify = {
             return '必须输入用户名'
         }
         //正则校验用户名格式是否正确
-        if(!/^[a-zA-Z0-9]{3,20}$/.test(uName.trim())){
+        if(!/^[\u4e00-\u9fa5a-zA-Z0-9]{2,20}$/.test(uName.trim())){
             return '您输入的用户名格式不正确'
         }
 
@@ -23,7 +23,7 @@ export const verify = {
             return '您输入的密码格式不正确'
         }
         //确认密码是否一致
-        if(pwd !== repeatPwd){
+        if(arguments.length > 1 && pwd !== repeatPwd){
             return '两次密码输入不一致'
         }
     },

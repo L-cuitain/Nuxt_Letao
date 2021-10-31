@@ -29,7 +29,12 @@ export default {
     //读取路由参数 如果没有则默认为0
     let active = query.active || 0;
     
-    let { oneCategoryList } = await $api.OneCategoryList();
+    let { oneCategoryList = [] } = await $api.OneCategoryList();
+
+    //判断数据正常返回
+    if(!oneCategoryList.length){
+      return;
+    }
 
     //遍历oneCategoryList
     oneCategoryList = oneCategoryList.map((item) => {

@@ -109,9 +109,11 @@ module.exports.login = async (ctx) => {
 
         // 返回响应
         ctx.body = {
-            code: 200,
+            status: 200,
             userInfo: {
-                token
+                token,
+                username,
+                mobile:result[0].mobile,
             },
             msg: '登录成功'
         }

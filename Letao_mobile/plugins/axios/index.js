@@ -11,14 +11,14 @@ export default function ({
   redirect
 }, inject) {
   //请求拦截
-  $axios.onRequest(config => {
-    //请求时加载loading
-    
-
+  $axios.onRequest(config => {    
     //在请求头设置token
     //已登录
     if (store.state.token) {
       $axios.setHeader('Authorization', `Bearer ${store.state.token}`);
+    }else{
+      //没有登录 清除token
+      $axios.setHeader('Authorization','');
     }
     console.log('Making request to ' + config.url)
     return config;
@@ -26,9 +26,6 @@ export default function ({
 
   //响应拦截
   $axios.onResponse(res => {
-    //响应时结束loading
-
-
     //获取 服务端 响应状态码
     const {
       status,
@@ -52,6 +49,8 @@ export default function ({
     } else if (code == 401) {
       //没有访问权限
       redirect('/my/login');
+      //返回成功的promise响应
+      return Promise.resolve(false);
     }
   })
 

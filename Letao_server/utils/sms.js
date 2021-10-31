@@ -16,12 +16,13 @@ module.exports.getSMSCode = (codeLen) => {
     return code;
 }
 
- // 腾讯云发送短信功能
- module.exports.sendSms = async (mobile, code) => {
-     console.log(process.env.secretId);
+// 短信发送功能
+module.exports.sendSms = async (mobile, smscode) => {
     const tencentcloud = require("tencentcloud-sdk-nodejs")
+
     // 导入对应产品模块的client models。
     const smsClient = tencentcloud.sms.v20210111.Client
+
     /* 实例化要请求产品(以sms为例)的client对象 */
     const client = new smsClient({
         credential: {
@@ -55,14 +56,15 @@ module.exports.getSMSCode = (codeLen) => {
             },
         },
     })
+
     /* 请求参数，根据调用的接口和实际情况，可以进一步设置请求参数
-    * 属性可能是基本类型，也可能引用了另一个数据结构
-    * 推荐使用IDE进行开发，可以方便的跳转查阅各个接口和数据结构的文档说明 */
+     * 属性可能是基本类型，也可能引用了另一个数据结构
+     * 推荐使用IDE进行开发，可以方便的跳转查阅各个接口和数据结构的文档说明 */
     const params = {
         /* 短信应用ID: 短信SmsSdkAppId在 [短信控制台] 添加应用后生成的实际SmsSdkAppId，示例如1400006666 */
         SmsSdkAppId: process.env.SmsSdkAppId,
         /* 短信签名内容: 使用 UTF-8 编码，必须填写已审核通过的签名，签名信息可登录 [短信控制台] 查看 */
-        SignName: process.env.SignName,
+        SignName: "达简网络",
         /* 短信码号扩展号: 默认未开通，如需开通请联系 [sms helper] */
         ExtendCode: "",
         /* 国际/港澳台短信 senderid: 国内短信填空，默认未开通，如需开通请联系 [sms helper] */
@@ -75,8 +77,8 @@ module.exports.getSMSCode = (codeLen) => {
         /* 模板 ID: 必须填写已审核通过的模板 ID。模板ID可登录 [短信控制台] 查看 */
         TemplateId: process.env.TemplateId,
         /* 模板参数: 若无模板参数，则设置为空*/
-        TemplateParamSet: [code],
+        TemplateParamSet: [smscode],
     }
     // 通过client对象调用想要访问的接口，需要传入请求对象以及响应回调函数
-    return await client.SendSms(params);
+    return await client.SendSms(params)
 }

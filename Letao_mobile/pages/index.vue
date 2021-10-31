@@ -39,7 +39,8 @@ export default {
     // const { sportsList } = await $api.IndexSports();
 
     //并发请求
-    const [{ swipeList }, { gridList }, { sportsList }] = await Promise.all([
+    //添加默认值
+    const [{ swipeList = [] }, { gridList = [] }, { sportsList = [] }] = await Promise.all([
       $api.IndexBanners(),
       $api.IndexGridList(),
       $api.IndexSports(),

@@ -38,10 +38,35 @@ export default ({ $request } , inject) => {
             return $request.$post('/sms',{mobile});
         },
         /**
-         * 注册
+         * 注册接口
+         * @param {Object} data 
+         * @returns 
          */
         Register(data){
             return $request.$post('/users/register',data);
+        },
+        /**
+         * 登录接口
+         * @param {Object} data 
+         * @returns 
+         */
+        Login(data){
+            return $request.$post('/users/login',data);
+        },
+        /**
+         * 支付
+         * @param {} data 
+         */
+        Order(data){
+            return $request.$post('/order',data);
+        },
+        /**
+         * 微信订单查询
+         * @param {*} data 
+         * @returns 
+         */
+        QueryOrder(data){
+            return $request.$post('/queryorder',data);
         }
     })
 }
